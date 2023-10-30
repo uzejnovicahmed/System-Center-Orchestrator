@@ -4,7 +4,7 @@ This PowerShell script connects to a SQL Server database, retrieves PowerShell s
 
 ## Parameters
 
-- **ServerInstance**: The SQL Server instance to connect to. Default is "SCORCH01\SQL01".
+- **ServerInstance**: The SQL Server instance to connect to. Default is "SERVER\INSTANCE".
 
 - **Database**: The name of the database to query. Default is "orchestrator".
 
@@ -47,7 +47,7 @@ From this results we are generating the Powershell Files located in the System C
 
 ```powershell
 # Define the SQL Server connection parameters
-$serverInstance = "SCORCH01\SQL01"
+$serverInstance = "SERVER\INSTANCE"
 $database = "orchestrator"
 
 # Specify the base path where the PowerShell script files will be saved
