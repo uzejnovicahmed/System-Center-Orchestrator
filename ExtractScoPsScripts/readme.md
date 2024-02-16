@@ -54,8 +54,19 @@ $database = "orchestrator"
 $basePath = "c:\SCO_PS_STRUCTURE\Runbooks\"
 
 # Execute the SQL query to retrieve script data from the database
+
 $query = @"
-# Your SQL Query Here
+DECLARE @BasePath NVARCHAR(255) = '$($basepath)';
+
+SELECT
+    @BasePath + ISNULL(F2.Name, '') + '\' + F1.Name + '\' + P.Name + '\' + O.Name + '.ps1' AS FolderPath,
+    R.ScriptBody
+FROM FOLDERS AS F1
+JOIN Policies AS P ON F1.UniqueID = P.ParentID
+JOIN Objects AS O ON P.UniqueID = O.ParentID
+JOIN RUNDOTNETSCRIPT AS R ON O.UniqueID = R.UniqueID
+LEFT JOIN FOLDERS AS F2 ON F1.ParentID = F2.UniqueID
+WHERE R.ScriptType = 'PowerShell';
 "@
 
 # Execute the SQL query and save the script files
